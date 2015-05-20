@@ -1,0 +1,22 @@
+%table{ cellpadding: 5 }
+  %tr{ style: 'background-color: #eee;' }
+    %td
+    %td Created At
+    %td First Byte
+    %td First Paint
+    %td Render
+    %td Load Time
+    %td Visual Complete
+    %td Total Bytes
+    %td Requests
+  - @snapshots.each_with_index do |snapshot, i|
+    %tr{ style: "background-color: #{ i.even? ? '#fff' : '#eee' }" }
+      %td= snapshot.target.label
+      %td= snapshot.created_at.strftime('%Y/%-m/%-e %H:%M')
+      %td= format_duration snapshot.first_byte
+      %td= format_duration snapshot.first_paint
+      %td= format_duration snapshot.render
+      %td= format_duration snapshot.load_time
+      %td= format_duration snapshot.visual_complete
+      %td= snapshot.total_bytes
+      %td= snapshot.requests

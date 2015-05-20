@@ -1,0 +1,20 @@
+.container#targets-index
+  .row
+    .col-xs-12.text-center
+      %h1 Performance Targets
+
+  .row.zebra
+    .col-sm-2 Label
+    .col-sm-10 Script
+      
+  - @targets.each do |target|
+    .row.zebra
+      .col-sm-2= target.label
+      .col-sm-8
+        %pre= URI.decode(target.script).gsub(/\+/, ' ')
+      .col-sm-2.text-center
+        = link_to 'Edit »', edit_target_path(target), class: 'btn btn-primary'
+
+
+  .row#new-target
+    .col-xs-12= link_to 'New Target »', new_target_path, class: 'btn btn-primary'

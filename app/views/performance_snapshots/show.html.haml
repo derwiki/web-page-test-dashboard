@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b First byte:
+  = @performance_snapshot.first_byte
+%p
+  %b First paint:
+  = @performance_snapshot.first_paint
+%p
+  %b Render:
+  = @performance_snapshot.render
+%p
+  %b Load time:
+  = @performance_snapshot.load_time
+%p
+  %b Full load time:
+  = @performance_snapshot.full_load_time
+%p
+  %b Total bytes:
+  = @performance_snapshot.total_bytes
+%p
+  %b Requests:
+  = @performance_snapshot.requests
+%p
+  %b Url:
+  = @performance_snapshot.url
+
+= link_to 'Edit', edit_performance_snapshot_path(@performance_snapshot)
+\|
+= link_to 'Back', performance_snapshots_path

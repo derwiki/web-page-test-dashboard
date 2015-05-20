@@ -1,0 +1,23 @@
+// Place all the styles related to the Targets controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#targets-index {
+  .row.zebra {
+    padding: 10px;
+  }
+
+  #new-target {
+    margin-top: 10px;
+  }
+}
+
+#targets-form {
+  input,
+  textarea {
+    width: 100%;
+  }
+
+  textarea {
+    height: 10em;
+  }
+}

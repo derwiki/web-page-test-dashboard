@@ -1,0 +1,32 @@
+= javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+.container
+  .row
+    .col-xs-12.text-center
+      %h1 Performance Snapshots
+
+  .row.zebra
+    .col-xs-12
+      = line_chart [{ name: 'Visually Complete', data: @ps_timedata }]
+
+  .row.zebra
+    .col-sm-3 Target
+    .col-sm-2 &nbsp;
+    .col-sm-1 First byte
+    .col-sm-1 First paint
+    .col-sm-1 Render
+    .col-sm-1 Load time
+    .col-sm-1 Visual Complete
+    .col-sm-1 Total bytes
+    .col-sm-1 Requests
+      
+  - @performance_snapshots.each do |performance_snapshot|
+    .row.zebra
+      .col-sm-3= performance_snapshot.target.label
+      .col-sm-2= l performance_snapshot.created_at
+      .col-sm-1= performance_snapshot.first_byte
+      .col-sm-1= performance_snapshot.first_paint
+      .col-sm-1= performance_snapshot.render
+      .col-sm-1= performance_snapshot.load_time
+      .col-sm-1= performance_snapshot.visual_complete
+      .col-sm-1= performance_snapshot.total_bytes
+      .col-sm-1= performance_snapshot.requests

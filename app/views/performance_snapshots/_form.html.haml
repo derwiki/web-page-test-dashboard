@@ -1,0 +1,34 @@
+= form_for @performance_snapshot do |f|
+  - if @performance_snapshot.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@performance_snapshot.errors.count, "error")} prohibited this performance_snapshot from being saved:"
+      %ul
+        - @performance_snapshot.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :first_byte
+    = f.number_field :first_byte
+  .field
+    = f.label :first_paint
+    = f.number_field :first_paint
+  .field
+    = f.label :render
+    = f.number_field :render
+  .field
+    = f.label :load_time
+    = f.number_field :load_time
+  .field
+    = f.label :full_load_time
+    = f.number_field :full_load_time
+  .field
+    = f.label :total_bytes
+    = f.number_field :total_bytes
+  .field
+    = f.label :requests
+    = f.number_field :requests
+  .field
+    = f.label :url
+    = f.text_area :url
+  .actions
+    = f.submit 'Save'
