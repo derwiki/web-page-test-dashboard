@@ -18,7 +18,8 @@ http://www.webpagetest.org/getkey.php
 1. `git push heroku master`
 1. `heroku run rake db:migrate`
 1. `heroku restart`
-1. `heroku addons:install scheduler`
+1. `heroku addons:create sendgrid`
+1. `heroku addons:create scheduler`
 1. `heroku addons:open scheduler` and add `rake wpt:run` every ten minutes (will run 5 times)
 
 ### Configuration
