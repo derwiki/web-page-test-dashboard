@@ -5,17 +5,22 @@ class PerformanceSnapshotsController < ApplicationController
 
   # GET /performance_snapshots
   def index
+    epoch_date = if ENV['EPOCH_DATE']
+                   Date.new(*ENV['EPOCH_DATE'].split('-'))
+                 else
+                   PerformanceSnapshot.minimum(:created_at)
+                 end
+    epoch_date ||= 1.week.ago
+
     @performance_snapshots =
       PerformanceSnapshot
         .order('id DESC')
-        .where('created_at > ?', Date.new(2015, 3, 7))
+        .where('created_at > ?', epoch_date)
         .to_a
 
     timedata = {}
     @performance_snapshots.each do |ps|
       vc = ps.visual_complete
-      next if ps.requests < 190
-      next if vc > 15_000 || vc < 4_000
 
       key = ps.created_at.strftime(HOUR_TIME_FORMAT)
       timedata[key] ||= []
@@ -27,8 +32,6 @@ class PerformanceSnapshotsController < ApplicationController
       average = values.inject(:+).to_f / values.size
       @ps_timedata << [Time.parse(hour_time_key), average]
     end
-
-    @performance_snapshots.select! { |ps| ps.requests > 100 }
   end
 
   # GET /performance_snapshots/1
