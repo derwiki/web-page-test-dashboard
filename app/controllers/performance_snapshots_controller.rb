@@ -16,21 +16,24 @@ class PerformanceSnapshotsController < ApplicationController
       PerformanceSnapshot
         .order('id DESC')
         .where('created_at > ?', epoch_date)
-        .to_a
-
-    timedata = {}
-    @performance_snapshots.each do |ps|
-      vc = ps.visual_complete
-
-      key = ps.created_at.strftime(HOUR_TIME_FORMAT)
-      timedata[key] ||= []
-      timedata[key] << vc
-    end
 
     @ps_timedata = []
-    timedata.each do |hour_time_key, values|
-      average = values.inject(:+).to_f / values.size
-      @ps_timedata << [Time.parse(hour_time_key), average]
+    Target.all.each do |target|
+      timedata = {}
+      ps_timedata = []
+      @performance_snapshots.where(target_id: target.id).each do |ps|
+        vc = ps.visual_complete
+
+        key = ps.created_at.strftime(HOUR_TIME_FORMAT)
+        timedata[key] ||= []
+        timedata[key] << vc
+      end
+
+      timedata.each do |hour_time_key, values|
+        average = values.inject(:+).to_f / values.size
+        ps_timedata << [Time.parse(hour_time_key), average]
+      end
+      @ps_timedata << { name: target.label, data: ps_timedata }
     end
   end
 

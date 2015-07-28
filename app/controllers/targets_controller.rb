@@ -24,7 +24,8 @@ class TargetsController < ApplicationController
     @target = Target.new(target_params)
 
     if @target.save
-      redirect_to @target, notice: 'Target was successfully created.'
+      redirect_to targets_path,
+        notice: "Target #{ @target.label } was successfully created."
     else
       render :new
     end
